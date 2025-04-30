@@ -16,8 +16,8 @@ import java.util.UUID;
 @Builder
 public class Patient extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String medicalRecordNumber;
     private LocalDate startOfCareDate;

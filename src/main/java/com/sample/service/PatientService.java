@@ -56,13 +56,13 @@ public class PatientService {
         return mapper.map(repository.save(patient), PatientDTO.class);
     }
 
-    public PatientDTO update(UUID id, PatientDTO dto) {
+    public PatientDTO update(Long id, PatientDTO dto) {
         Patient existing = repository.findById(id).orElseThrow();
         mapper.map(dto, existing);
         return mapper.map(repository.save(existing), PatientDTO.class);
     }
 
-    public Optional<PatientDTO> getById(UUID id) {
+    public Optional<PatientDTO> getById(Long id) {
         return repository.findById(id).map(p -> mapper.map(p, PatientDTO.class));
     }
 
@@ -74,7 +74,7 @@ public class PatientService {
         return repository.findAll().stream().map(p -> mapper.map(p, PatientDTO.class)).toList();
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
