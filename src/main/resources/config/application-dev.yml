@@ -1,3 +1,6 @@
+rabbitmq.exchange: patient-exchange
+rabbitmq.routing-key: patient-routing-key
+
 spring:
   config:
     activate:
@@ -13,12 +16,32 @@ spring:
           - git-version=${git.commit.id.describe:}
           - git-commit=${git.commit.id.abbrev:}
           - git-branch=${git.branch:}
-      host: consul
+      host: localhost
       port: 8500
+
+  rabbitmq:
+    host: localhost               # RabbitMQ server host
+    port: 5672                    # RabbitMQ port (default is 5672)
+    username: guest               # RabbitMQ username
+    password: guest               # RabbitMQ password
+    virtual-host: /
+    #exchange: patient-exchange
+    #routing-key: patient-routing-key
+    listener:
+      simple:
+        concurrency: 3            # Optional: number of concurrent consumers
+        max-concurrency: 10       # Optional: maximum number of consumers
+        retry:
+          enabled: true           # Optional: enable retry
+          max-attempts: 5
+          initial-interval: 1000
+          multiplier: 2.0
+          max-interval: 10000
+
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://postgres:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: myFirstMicroService
     password: mySecurePassword
     hikari:

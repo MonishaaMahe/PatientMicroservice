@@ -2,10 +2,11 @@ package com.sample.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
-public class PatientDTO {
+public class PatientDTO implements Serializable {
     private String medicalRecordNumber;
     private LocalDate startOfCareDate;
     private String status;

@@ -3,6 +3,7 @@ package com.sample.web.rest;
 import com.sample.config.VaultDataConfig;
 import com.sample.dto.PatientDTO;
 import com.sample.dto.UserDto;
+import com.sample.service.PatientPublisher;
 import com.sample.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class PatientController {
 
     @Autowired
     private VaultDataConfig vaultDataConfig;
+
+    @Autowired
+    private PatientPublisher patientPublisher;
 
     @GetMapping("/vaultsecret")
     public String getVaultData()
@@ -49,7 +53,10 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<PatientDTO> create(@RequestBody PatientDTO dto) {
-        return ResponseEntity.ok(service.create(dto));
+        PatientDTO patientDTO = service.create(dto);
+        patientPublisher.publish(patientDTO);
+        System.out.println("publish done");
+        return ResponseEntity.ok(patientDTO);
     }
 
     @PutMapping("/{id}")
