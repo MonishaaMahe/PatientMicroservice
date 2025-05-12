@@ -3,6 +3,8 @@ spring:
     activate:
       on-profile: dev
 
+
+
   cloud:
     consul:
       discovery:
@@ -13,17 +15,30 @@ spring:
           - git-version=${git.commit.id.describe:}
           - git-commit=${git.commit.id.abbrev:}
           - git-branch=${git.branch:}
-      host: consul
+      host: localhost
       port: 8500
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://postgres:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: myFirstMicroService
     password: mySecurePassword
     hikari:
       poolName: Hikari
       auto-commit: false
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        concurrency: 3
+        max-concurrency: 10
+
+    elasticsearch:
+      uris: http://localhost:9200
 
   jpa:
     hibernate:

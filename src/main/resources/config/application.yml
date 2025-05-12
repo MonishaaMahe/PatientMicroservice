@@ -2,6 +2,15 @@ spring:
   application:
     name: patient-service
 
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: myFirstMicroService
+    password: mySecurePassword
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
   jpa:
     open-in-view: false # Disables the "Open Session in View" pattern, which keeps the Hibernate session open during the view rendering phase. Setting it to false improves performance and avoids lazy-loading issues.
     properties:
@@ -39,6 +48,22 @@ spring:
         watch:
           enabled: false
 
+  data:
+    mongodb:
+      uri: mongodb://root:rootpassword@localhost:27017/vital_sign_db?authSource=admin
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        concurrency: 3
+        max-concurrency: 10
+
+    elasticsearch:
+      uris: http://localhost:9200
 server:
   port: 9091
 
